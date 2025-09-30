@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de Missão</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin-top: 10px; }
+    textarea { width: 100%; height: 100px; }
+    button { margin-top: 20px; padding: 10px 20px; }
+    .output { margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <h1>Relatório de Missão</h1>
+
+  <form id="missionForm">
+    <label>Nome do Agente:
+      <input type="text" name="agente" required>
+    </label>
+
+    <label>Gênero:
+      <input type="radio" name="genero" value="Masculino" required> Masculino
+      <input type="radio" name="genero" value="Feminino"> Feminino
+      <input type="radio" name="genero" value="Outro"> Outro
+    </label>
+
+    <label>Nome da Missão:
+      <input type="text" name="missao" required>
+    </label>
+
+    <label>Relato:
+      <textarea name="relato" required></textarea>
+    </label>
+
+    <button type="submit">Enviar Relatório</button>
+  </form>
+
+  <div class="output" id="output"></div>
+
+  <script>
+    const form = document.getElementById("missionForm");
+    const output = document.getElementById("output");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = {
+        agente: formData.get("agente"),
+        genero: formData.get("genero"),
+        missao: formData.get("missao"),
+        relato: formData.get("relato")
+      };
+
+      output.innerHTML = `
+        <h3>Relatório Enviado</h3>
+        <p><strong>Agente:</strong> ${data.agente}</p>
+        <p><strong>Gênero:</strong> ${data.genero}</p>
+        <p><strong>Missão:</strong> ${data.missao}</p>
+        <p><strong>Relato:</strong><br>${data.relato.replace(/\n/g, "<br>")}</p>
+      `;
+    });
+  </script>
+</body>
+</html>
+
